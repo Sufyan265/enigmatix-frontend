@@ -1,0 +1,44 @@
+/project-root
+├── /public                # Public files
+│   └── index.html         # Main HTML file
+├── /src                   # Source files for the project
+│   ├── /assets            # Static assets like images, icons, fonts
+│   │   └── /styles        # Global CSS, Tailwind config if needed
+│   │       └── variables.css
+│   ├── /components        # Reusable UI components
+│   │   ├── Navbar.jsx
+│   │   ├── Sidebar.jsx
+│   │   └── Footer.jsx
+│   ├── /hooks             # Custom React hooks
+│   │   └── useAuth.js
+│   ├── /layouts           # Layout components
+│   │   └── AdminLayout.jsx
+│   ├── /pages             # Page components
+│   │   ├── /Account       # Account management pages
+│   │   │   ├── CreateAccount.jsx
+│   │   │   ├── UpdateAccount.jsx
+│   │   │   └── ViewAccounts.jsx
+│   │   ├── /Income        # Manage income pages
+│   │   │   └── AddIncome.jsx
+│   │   ├── /Expense       # Manage expense pages
+│   │   │   ├── SubmitExpense.jsx
+│   │   │   └── ApproveExpense.jsx
+│   │   ├── /Reports       # Report viewing pages
+│   │   │   └── ViewReports.jsx
+│   │   └── /Auth          # Authentication pages (login, signup)
+│   │       └── Login.jsx
+│   ├── /services          # API service files
+│   │   ├── accountService.js
+│   │   ├── incomeService.js
+│   │   ├── expenseService.js
+│   │   └── reportService.js
+│   ├── /store             # State management (Redux, Context API)
+│   │   ├── authSlice.js
+│   │   └── accountSlice.js
+│   ├── /utils             # Utility functions and helpers
+│   │   └── formatDate.js
+│   ├── App.jsx            # Main React component
+│   ├── main.jsx           # Entry point for Vite
+│   └── /routes            # Route definitions
+│       └── index.jsx
+└── vite.config.js         # Vite configuration file
