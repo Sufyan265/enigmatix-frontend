@@ -1,17 +1,21 @@
 import React from 'react';
 import AccountForm from '../../components/AccountForm';
+import { useSuperAdminContext } from '../../context/SuperAdminContext';
 
 const AccountCreationPage = () => {
-    // const { createAccount } = useCrudContext();
+    const { createCompanyAdmin } = useSuperAdminContext();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data, setError) => {
         try {
-            console.log(data);
-            // await createAccount(data);
-            console.log("Accouent Created Succesfuly")
+            await createCompanyAdmin(data);
         } catch (error) {
             console.error(error);
-        };
+            if (error.message === 'Company with this email already exists.' || error.message === 'Invalid Credentials') {
+                setError('inValid', { type: 'manual', message: 'Company with this email already exists.' });
+            } else {
+                setError('inValid', { type: 'manual', message: error.message });
+            }
+        }
     }
 
     return (

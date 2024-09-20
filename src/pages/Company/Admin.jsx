@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
-import Sidebar from '../components/Sidebar'
-import NotFound from '../components/NotFound'
-import ViewAccounts from './Account/ViewAccounts';
-import CreateEmployee from './Company/CreateEmployee';
+import React, { useEffect, useState } from 'react'
+import Sidebar from '../../components/Sidebar'
+import NotFound from '../../components/NotFound'
+import ViewAccounts from '../Account/ViewAccounts';
+import CreateEmployee from '../Company/CreateEmployee';
 import { Route, Routes, useParams } from 'react-router-dom';
-import NavbarCompany from '../components/NavbarCompany';
+import NavbarCompany from '../../components/NavbarCompany';
+import { useAdminContext } from '../../context/AdminContext';
+import ViewCompany from './ViewCompany';
 
 const Admin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { id } = useParams();
+    const { getAllUsers, setNewUserData, allUsersData } = useAdminContext();
+
+    useEffect(() => {
+        getAllUsers();
+    }, [setNewUserData]);
 
     return (
         <>
@@ -24,7 +31,7 @@ const Admin = () => {
                     </div>
 
                     <Routes>
-                        <Route path="/" element={<ViewAccounts heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} />} />
+                        <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} />} />
                         <Route path="/create" element={<CreateEmployee />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

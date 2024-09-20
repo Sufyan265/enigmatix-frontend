@@ -1,10 +1,20 @@
-// import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Loading from './Loading';
 
 const Login = ({ onSubmit, panelName }) => {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
-    // const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors, isSubmitting }, setError, clearErrors, watch } = useForm();
+
+    // Watch email and password fields
+    const email = watch('email');
+    const password = watch('password');
+
+    // Clear inValid error when email or password changes
+    useEffect(() => {
+        if (errors.inValid) {
+            clearErrors('inValid');
+        }
+    }, [email, password, clearErrors]);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 w-full">
@@ -17,8 +27,7 @@ const Login = ({ onSubmit, panelName }) => {
                 </div>
 
                 <div className="md:p-8 p-4">
-
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit((data) => onSubmit(data, setError))}>
                         <div className="mb-4">
                             <label className="block text-gray-700">Email</label>
                             <input
@@ -42,13 +51,14 @@ const Login = ({ onSubmit, panelName }) => {
                             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                         </div>
 
+                        {errors.inValid && <p className="text-red-500 text-sm my-1 text-center">{errors.inValid.message}</p>}
                         <button type="submit" className="w-full bg-primary text-white py-2 rounded-sm hover:bg-blue-600 transition-colors" disabled={isSubmitting}>
                             {isSubmitting ? <Loading size={25} /> : 'Log In'}
                         </button>
                     </form>
 
                     <div className="w-full text-center my-7">
-                        <a hred="#" className="text-gray-500 flex justify-center items-center text-base cursor-pointer">
+                        <a href="#" className="text-gray-500 flex justify-center items-center text-base cursor-pointer">
                             Forgot your password?
                         </a>
                     </div>

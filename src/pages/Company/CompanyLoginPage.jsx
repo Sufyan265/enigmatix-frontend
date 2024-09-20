@@ -2,14 +2,17 @@ import React from 'react';
 import Navbar from "../../components/Navbar"
 import Login from '../../components/Login';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAdminContext } from '../../context/AdminContext';
 
 const LoginPage = () => {
-    const navigate = useNavigate();
-    const { id } = useParams();
+    // const navigate = useNavigate();
+
+    const { loginAdmin } = useAdminContext();
 
     const onSubmit = async (data) => {
-        navigate(`/company/${id}`);
+        // navigate(`/company/${id}`);
         console.log(data);
+        await loginAdmin(data);
         console.log("Logged in successfully");
     };
 
