@@ -8,10 +8,10 @@ const NavbarCompany = ({ data }) => {
                 <Link to="/super-admin" className="logo font-bold text-white">Company Admin</Link>
                 <ul className='flex md:gap-6 gap-4 flex-wrap md:mt-0 mt-5'>
                     <a href='/'><li>Home</li></a>
-                    <a href='/accounts'><li>Accounts</li></a>
+                    {/* <a href='/accounts'><li>Accounts</li></a>
                     <a href='/income'><li>income</li></a>
                     <a href='/expense'><li>expense</li></a>
-                    <a href='/reports'><li>reports</li></a>
+                    <a href='/reports'><li>reports</li></a> */}
                 </ul>
             </div>
         </nav>

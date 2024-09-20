@@ -14,6 +14,9 @@ const Login = ({ onSubmit, panelName }) => {
         if (errors.inValid) {
             clearErrors('inValid');
         }
+        setTimeout(() => {
+            clearErrors('inValid');
+        }, 7000);
     }, [email, password, clearErrors]);
 
     return (

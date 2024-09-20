@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSuperAdminContext } from './SuperAdminContext';
 
-export const AdminContext = createContext();
+export const EmployeeContext = createContext();
 
-export const AdminProvider = (props) => {
+export const EmployeeProvider = (props) => {
     const { host } = useSuperAdminContext();
     // const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -13,12 +13,11 @@ export const AdminProvider = (props) => {
 
     const navigate = useNavigate();
 
-
-    // Login Admin Account Function
-    const loginAdmin = async (account) => {
+    // Login Employee Account Function
+    const loginEmployee = async (account) => {
         try {
             setLoading(true);
-            const response = await fetch(`${host}/api/companies/login`, {
+            const response = await fetch(`${host}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,9 +32,9 @@ export const AdminProvider = (props) => {
 
             // console.log(data.token)
             if (data.token) {
-                localStorage.setItem("AdminToken", data.token)
-                navigate(`/company/${data.company._id}`)
-                console.log("Logged in Company Admin successfully");
+                localStorage.setItem("employeeToken", data.token)
+                navigate(`/company/${data.user.company}/employee/${data.user._id}`)
+                console.log("Logged in Company Employee successfully");
             } else {
                 throw new Error("Invalid Credentials")
             }
@@ -43,42 +42,40 @@ export const AdminProvider = (props) => {
         } catch (error) {
             setLoading(false);
             console.error(error)
-            throw error
         }
     };
 
 
-    // Create Company Admin Account Function
-    const createUser = async (userDetails, id) => {
+    // Create Company Employee Account Function
+    const createUser = async (accountDetails) => {
         try {
             setLoading(true);
-            const response = await fetch(`${host}/api/users`, {
+            const response = await fetch(`${host}/api/companies`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("AdminToken")}`
+                    'Authorization': `Bearer ${localStorage.getItem("EmployeeToken")}`
                 },
-                body: JSON.stringify({ ...userDetails, companyId: id })
+                body: JSON.stringify(accountDetails)
             });
 
-            const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.message)
+                throw new Error("Invalid Credentials")
             }
 
+            const data = await response.json();
             console.log(data)
             setNewUserData(data)
-            navigate(`/company/${id}`)
+            navigate("/company/:id")
             console.log("Company Created Succesfuly")
             setLoading(false)
         } catch (error) {
             setLoading(false);
             console.error(error)
-            throw error
         }
     };
 
-    // Create Company Admin Account Function
+    // Create Company Employee Account Function
     const getAllUsers = async () => {
         try {
             setLoading(true);
@@ -86,7 +83,7 @@ export const AdminProvider = (props) => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("AdminToken")}`
+                    'Authorization': `Bearer ${localStorage.getItem("EmployeeToken")}`
                 }
             });
 
@@ -101,48 +98,13 @@ export const AdminProvider = (props) => {
         } catch (error) {
             setLoading(false);
             console.error(error)
-            throw error
         }
     };
 
-
-
-    // const createAccount = async (data) => {
-    //   console.log("Create Account")
-
-    // };
-
-
-    // Get All Accounts Function
-    // const getAccounts = async () => {
-    //   console.log("Get All Accounts")
-
-    // };
-
-    // Get Account By ID Function
-    // const getAccountById = async (accountId) => {
-    //   console.log("Get Account By ID")
-
-    // };
-
-
-    // Edit Account Function
-    // const editAccount = async (accountId, data) => {
-    //   console.log("Edit Account Function")
-
-    // };
-
-
-    // Delete Account Function (Delete from Firebase)
-    // const deleteAccount = async (accountId) => {
-    //   console.log("Delete Account")
-
-    // };
-
     return (
-        <AdminContext.Provider value={{
+        <EmployeeContext.Provider value={{
             loading,
-            loginAdmin,
+            loginEmployee,
 
             createUser,
             newUserData,
@@ -154,8 +116,8 @@ export const AdminProvider = (props) => {
 
         }}>
             {props.children}
-        </AdminContext.Provider>
+        </EmployeeContext.Provider>
     );
 };
 
-export const useAdminContext = () => useContext(AdminContext);
+export const useEmployeeContext = () => useContext(EmployeeContext);

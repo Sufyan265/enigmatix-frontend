@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar';
 import { useSuperAdminContext } from '../../context/SuperAdminContext';
 
 const SuperAdmin = () => {
-  const { getAllCompanies, loading, allCompaniesData, setAllCompaniesData, setNewCompanyData } = useSuperAdminContext();
+  const { getAllCompanies, allCompaniesData, setAllCompaniesData, setNewCompanyData } = useSuperAdminContext();
 
   useEffect(() => {
     getAllCompanies();

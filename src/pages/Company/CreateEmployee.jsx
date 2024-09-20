@@ -1,23 +1,29 @@
 import React from 'react';
-import AccountForm from '../../components/AccountForm';
+import EmployeeForm from '../../components/EmployeeForm';
+import { useAdminContext } from '../../context/AdminContext';
+import { useParams } from 'react-router-dom';
 
 const CreateEmployee = () => {
-    // const { createAccount } = useCrudContext();
+    const { createUser } = useAdminContext();
+    const { id } = useParams();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data, setError) => {
         try {
-            console.log(data);
-            // await createAccount(data);
-            console.log("Accouent Created Succesfuly")
+            await createUser(data, id);
         } catch (error) {
             console.error(error);
-        };
+            if (error.message === 'User with this email already exists.' || error.message === 'Invalid Credentials') {
+                setError('inValid', { type: 'manual', message: 'User with this email already exists.' });
+            } else {
+                setError('inValid', { type: 'manual', message: error.message });
+            }
+        }
     }
 
     return (
         <>
             <div className="container mx-auto p-4">
-                <AccountForm onSubmit={onSubmit} submitText="Create Employee" />
+                <EmployeeForm onSubmit={onSubmit} />
             </div>
         </>
     );

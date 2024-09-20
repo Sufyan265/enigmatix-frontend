@@ -33,6 +33,7 @@ const Admin = () => {
                     <Routes>
                         <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} />} />
                         <Route path="/create" element={<CreateEmployee />} />
+                        
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

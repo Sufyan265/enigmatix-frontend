@@ -9,6 +9,7 @@ import Admin from './pages/Company/Admin';
 import EmployeePanel from './pages/Employee/EmployeePanel';
 import { SuperAdminProvider } from './context/SuperAdminContext';
 import { AdminProvider } from './context/AdminContext';
+import { EmployeeProvider } from './context/EmployeeContext';
 
 function App() {
   return (
@@ -16,21 +17,23 @@ function App() {
       <Router>
         <SuperAdminProvider>
           <AdminProvider>
-            <main>
-              <Routes>
-                <Route exact path="/" element={<LoginPage />} />
-                <Route exact path="/super-admin/*" element={<SuperAdmin />} />
+            <EmployeeProvider>
+              <main>
+                <Routes>
+                  <Route exact path="/" element={<LoginPage />} />
+                  <Route exact path="/super-admin/*" element={<SuperAdmin />} />
 
-                <Route exact path="/company/login" element={<CompanyLoginPage />} />
-                <Route exact path="/company/:id/*" element={<Admin />} />
+                  <Route exact path="/company/login" element={<CompanyLoginPage />} />
+                  <Route exact path="/company/:id/*" element={<Admin />} />
 
-                <Route exact path="/company/:companyId/employee/login" element={<EmployeeLoginPage />} />
-                <Route exact path="/company/:companyId/employee/:employeeId/*" element={<EmployeePanel />} />
+                  <Route exact path="/company/:companyId/employee/login" element={<EmployeeLoginPage />} />
+                  <Route exact path="/company/:companyId/employee/:employeeId/*" element={<EmployeePanel />} />
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
 
+            </EmployeeProvider>
           </AdminProvider>
         </SuperAdminProvider>
       </Router>

@@ -1,16 +1,23 @@
 import React from 'react';
 import Navbar from "../../components/Navbar"
 import Login from '../../components/Login';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEmployeeContext } from '../../context/EmployeeContext';
 
 const EmployeeLoginPage = () => {
-    const navigate = useNavigate();
-    const { companyId, employeeId } = useParams();
-
-    const onSubmit = async (data) => {
-        navigate(`/company/${companyId}/employee/${employeeId}`);
-        console.log(data);
-        console.log("Logged in successfully");
+    const { loginEmployee } = useEmployeeContext();
+    
+    const onSubmit = async (data, setError) => {
+        try {
+            console.log('superAdminData')
+            await loginEmployee(data);
+        } catch (error) {
+            console.error(error);
+            if (error.message === 'Invalid Credentials') {
+                setError('inValid', { type: 'manual', message: 'Invalid email or password' });
+            } else {
+                setError('inValid', { type: 'manual', message: error.message });
+            }
+        }
     };
 
     return (
