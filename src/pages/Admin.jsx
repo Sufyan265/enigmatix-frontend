@@ -24,7 +24,7 @@ const Admin = () => {
                     </div>
 
                     <Routes>
-                        <Route path="/" element={<ViewAccounts heading="Create Employee" createAccountPath={`/company/${id}/create`} />} />
+                        <Route path="/" element={<ViewAccounts heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} />} />
                         <Route path="/create" element={<CreateEmployee />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

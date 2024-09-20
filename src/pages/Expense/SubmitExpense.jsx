@@ -23,14 +23,14 @@ const SubmitExpense = () => {
     };
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Submit Expense</h1>
+        <div className="container mx-auto p-4 max-w-xl">
+            <h1 className="text-2xl font-bold mb-4 text-gray-700">Submit Expense</h1>
             <input
                 type="number"
                 value={expenseAmount}
                 onChange={(e) => setExpenseAmount(e.target.value)}
                 placeholder="Enter expense amount"
-                className="border p-2 mb-4 w-full"
+                className="border p-2 mb-4 w-full text-gray-700"
             />
             <button
                 onClick={handleSubmitExpense}

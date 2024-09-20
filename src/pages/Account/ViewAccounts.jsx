@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import AccountCard from "../../components/AccountCard";
 
@@ -13,12 +13,14 @@ const botsObj = [
     { id: 7, name: 'Samad', category: 'Hardware Store', owner: "Muhammad Sufyan" },
 ];
 
-const ViewAccounts = ({ heading, createAccountPath }) => {
+const ViewAccounts = ({ heading, createAccountPath, getAccountPath }) => {
     // const { getAccounts, accounts, loading } = useCrudContext();
 
     // useEffect(() => {
     //     getAccounts();
     // }, []);
+
+    const { employeeId } = useParams();
 
     return (
         <>
@@ -41,7 +43,7 @@ const ViewAccounts = ({ heading, createAccountPath }) => {
                         </div>
                         : */}
                     {botsObj.map((account, index) => (
-                        <AccountCard key={index} name={account.name} owner={account.owner} category={account.category} path={`/company/${account.id}`} />
+                        <AccountCard key={index} name={account.name} owner={account.owner} category={account.category} path={`${getAccountPath}/${account.id}/login`} />
                     ))}
                     {/* } */}
                 </div>

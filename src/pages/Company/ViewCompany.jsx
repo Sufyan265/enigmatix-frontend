@@ -42,7 +42,7 @@ const ViewAccounts = ({ heading }) => {
                         </div>
                         : */}
                     {botsObj.map((account) => (
-                        <AccountCard key={account.id} name={account.name} owner={account.owner} category={account.category} path={`/company/${account.id}`} />
+                        <AccountCard key={account.id} name={account.name} owner={account.owner} category={account.category} path={`/company/${account.id}/login`} />
                     ))}
                     {/* } */}
                 </div>
