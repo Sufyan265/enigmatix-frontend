@@ -8,6 +8,7 @@ export const SuperAdminProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [newCompanyData, setNewCompanyData] = useState([]);
   const [allCompaniesData, setAllCompaniesData] = useState([]);
+  const [companyId, setCompanyId] = useState("");
 
   const host = "http://localhost:5000";
 
@@ -30,17 +31,18 @@ export const SuperAdminProvider = (props) => {
       }
 
       const data = await response.json();
-      // console.log(data.token)
+      // console.log(data)
       if (data.token) {
         localStorage.setItem("superAdminToken", data.token)
         navigate("/super-admin")
         console.log("Logged in Super Admin successfully");
+        setLoading(false)
         return data;
       } else {
+        setLoading(false)
         throw new Error("Invalid Credentials")
       }
 
-      setLoading(false)
     } catch (error) {
       setLoading(false);
       console.error(error)
@@ -107,48 +109,8 @@ export const SuperAdminProvider = (props) => {
     }
   };
 
-
-
-  // const createAccount = async (data) => {
-  //   console.log("Create Account")
-
-  // };
-
-
-  // Get All Accounts Function
-  // const getAccounts = async () => {
-  //   console.log("Get All Accounts")
-
-  // };
-
-  // Get Account By ID Function
-  // const getAccountById = async (accountId) => {
-  //   console.log("Get Account By ID")
-
-  // };
-
-
-  // Edit Account Function
-  // const editAccount = async (accountId, data) => {
-  //   console.log("Edit Account Function")
-
-  // };
-
-
-  // Delete Account Function (Delete from Firebase)
-  // const deleteAccount = async (accountId) => {
-  //   console.log("Delete Account")
-
-  // };
-
   return (
     <SuperAdminContext.Provider value={{
-      // createAccount,
-      // getAccounts,
-      // getAccountById,
-      // editAccount,
-      // deleteAccount,
-
       host,
 
       loading,
@@ -161,6 +123,9 @@ export const SuperAdminProvider = (props) => {
       getAllCompanies,
       allCompaniesData,
       setAllCompaniesData,
+
+      companyId,
+      setCompanyId,
 
     }}>
       {props.children}

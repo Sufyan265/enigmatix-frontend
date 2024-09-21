@@ -33,7 +33,7 @@ export const AdminProvider = (props) => {
 
             // console.log(data.token)
             if (data.token) {
-                localStorage.setItem("AdminToken", data.token)
+                localStorage.setItem(`adminToken:${data.company._id}`, data.token)
                 navigate(`/company/${data.company._id}`)
                 console.log("Logged in Company Admin successfully");
             } else {
@@ -79,14 +79,14 @@ export const AdminProvider = (props) => {
     };
 
     // Create Company Admin Account Function
-    const getAllUsers = async () => {
+    const getAllUsers = async (companyId) => {
         try {
             setLoading(true);
             const response = await fetch(`${host}/api/users`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("AdminToken")}`
+                    'Authorization': `Bearer ${localStorage.getItem(`adminToken:${companyId}`)}`
                 }
             });
 

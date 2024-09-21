@@ -14,7 +14,7 @@ import { useSuperAdminContext } from "../../context/SuperAdminContext";
 //     { id: 7, name: 'Samad', category: 'Hardware Store', owner: "Muhammad Sufyan" },
 // ];
 
-const ViewAccounts = ({ heading, createAccountPath, getAccountPath, data }) => {
+const ViewAccounts = ({ heading, createAccountPath, data }) => {
     const { loading, } = useSuperAdminContext();
 
     // const { employeeId } = useParams();
@@ -22,6 +22,7 @@ const ViewAccounts = ({ heading, createAccountPath, getAccountPath, data }) => {
     if (!data) {
         data = [];
     }
+
 
     return (
         <>
@@ -41,7 +42,7 @@ const ViewAccounts = ({ heading, createAccountPath, getAccountPath, data }) => {
                         </div>
                     ) : (
                         data.map((account) => (
-                            <AccountCard key={account.company._id} name={account.company.name} owner={account.admin.email} category={account.admin.name} path={`${getAccountPath}/login`} />
+                            <AccountCard key={account.company._id} name={account.company.name} owner={account.admin.email} category={account.admin.name} path={`/company/login`} />
                         ))
                     )}
                 </div>

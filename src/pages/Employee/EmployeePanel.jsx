@@ -1,12 +1,20 @@
+import { Navigate, useParams } from "react-router-dom";
 import SubmitExpense from "../Expense/SubmitExpense";
 
 
-const EmployeePanel = ({ heading }) => {
+const EmployeePanel = () => {
     // const { getAccounts, accounts, loading } = useCrudContext();
 
     // useEffect(() => {
     //     getAccounts();
     // }, []);
+
+    const { companyId, employeeId } = useParams();
+    const employeeToken = localStorage.getItem(`employeeToken:${employeeId}`);
+
+    if (!employeeId || !employeeToken) {
+        return <Navigate to={`/company/${companyId}/employee/login`} />;
+    }
 
     return (
         <>

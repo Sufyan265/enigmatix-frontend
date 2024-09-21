@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar'
-import NotFound from '../../components/NotFound'
-import ViewAccounts from '../Account/ViewAccounts';
+import NotFound from '../../components/NotFound';
 import CreateEmployee from '../Company/CreateEmployee';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import NavbarCompany from '../../components/NavbarCompany';
 import { useAdminContext } from '../../context/AdminContext';
 import ViewCompany from './ViewCompany';
 
 const Admin = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { id } = useParams();
+    const adminToken = localStorage.getItem(`adminToken:${id}`);
+
+    if (!id || !adminToken) {
+        return <Navigate to={`/company/login`} />;
+    }
+
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { getAllUsers, setNewUserData, allUsersData } = useAdminContext();
 
     useEffect(() => {
-        getAllUsers();
+        getAllUsers(id);
     }, [setNewUserData]);
 
     return (
@@ -33,7 +39,7 @@ const Admin = () => {
                     <Routes>
                         <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} />} />
                         <Route path="/create" element={<CreateEmployee />} />
-                        
+
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

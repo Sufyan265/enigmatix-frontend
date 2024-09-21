@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import NotFound from '../../components/NotFound'
-import ViewAccounts from '../Account/ViewAccounts';
-import CreateAccount from '../Account/CreateAccount';
+import ViewAccounts from './ViewAccounts';
+import CreateAccount from './CreateAccount';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { useSuperAdminContext } from '../../context/SuperAdminContext';
 
 const SuperAdmin = () => {
-  const { getAllCompanies, allCompaniesData, setAllCompaniesData, setNewCompanyData } = useSuperAdminContext();
+  const { getAllCompanies, allCompaniesData, newCompanyData } = useSuperAdminContext();
 
   useEffect(() => {
     getAllCompanies();
-  }, [setAllCompaniesData, setNewCompanyData]);
+  }, [newCompanyData]);
 
   return (
     <>
@@ -20,7 +20,7 @@ const SuperAdmin = () => {
           <Navbar brand="Company Super Admin" />
 
           <Routes>
-            <Route path="/" element={<ViewAccounts heading="Create Company" createAccountPath="/super-admin/company/create" getAccountPath={`/company`} data={allCompaniesData} />} />
+            <Route path="/" element={<ViewAccounts heading="Create Company" createAccountPath="/super-admin/company/create" data={allCompaniesData} />} />
             <Route path="/company/create" element={<CreateAccount />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

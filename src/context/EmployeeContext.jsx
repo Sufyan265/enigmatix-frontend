@@ -32,7 +32,7 @@ export const EmployeeProvider = (props) => {
 
             // console.log(data.token)
             if (data.token) {
-                localStorage.setItem("employeeToken", data.token)
+                localStorage.setItem(`employeeToken:${data.user._id}`, data.token)
                 navigate(`/company/${data.user.company}/employee/${data.user._id}`)
                 console.log("Logged in Company Employee successfully");
             } else {
@@ -42,6 +42,7 @@ export const EmployeeProvider = (props) => {
         } catch (error) {
             setLoading(false);
             console.error(error)
+            throw error;
         }
     };
 
