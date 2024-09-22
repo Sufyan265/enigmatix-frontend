@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSuperAdminContext } from './SuperAdminContext';
 
 export const AdminContext = createContext();
@@ -100,8 +100,11 @@ export const AdminProvider = (props) => {
             setLoading(false)
         } catch (error) {
             setLoading(false);
+            if (error.message === "Not authorized, token failed") {
+                return navigate("/company/login");
+            }
             console.error(error)
-            throw error
+            throw error;
         }
     };
 
