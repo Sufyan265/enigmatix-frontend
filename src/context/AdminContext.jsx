@@ -49,16 +49,16 @@ export const AdminProvider = (props) => {
 
 
     // Create Company Admin Account Function
-    const createUser = async (userDetails, id) => {
+    const createUser = async (userDetails, companyId) => {
         try {
             setLoading(true);
             const response = await fetch(`${host}/api/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("AdminToken")}`
+                    'Authorization': `Bearer ${localStorage.getItem(`adminToken:${companyId}`)}`
                 },
-                body: JSON.stringify({ ...userDetails, companyId: id })
+                body: JSON.stringify({ ...userDetails, companyId: companyId })
             });
 
             const data = await response.json();
@@ -68,7 +68,7 @@ export const AdminProvider = (props) => {
 
             console.log(data)
             setNewUserData(data)
-            navigate(`/company/${id}`)
+            navigate(`/company/${companyId}`)
             console.log("Company Created Succesfuly")
             setLoading(false)
         } catch (error) {
@@ -100,10 +100,10 @@ export const AdminProvider = (props) => {
             setLoading(false)
         } catch (error) {
             setLoading(false);
+            console.error(error)
             if (error.message === "Not authorized, token failed") {
                 return navigate("/company/login");
             }
-            console.error(error)
             throw error;
         }
     };

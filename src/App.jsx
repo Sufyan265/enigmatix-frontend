@@ -11,7 +11,8 @@ import EmployeePanel from './pages/Employee/EmployeePanel';
 import { SuperAdminProvider, useSuperAdminContext } from './context/SuperAdminContext';
 import { AdminProvider } from './context/AdminContext';
 import { EmployeeProvider } from './context/EmployeeContext';
-import {  SuperAdminProtecter } from './routes/ProtectedRoute';
+import { SuperAdminProtecter } from './routes/ProtectedRoute';
+import { ExpenseProvider } from './context/ExpenseContext';
 
 function AppWrapper() {
   const { companyId } = useSuperAdminContext();
@@ -40,7 +41,11 @@ function App() {
       <SuperAdminProvider>
         <AdminProvider>
           <EmployeeProvider>
-            <AppWrapper />
+            <ExpenseProvider>
+
+              <AppWrapper />
+
+            </ExpenseProvider>
           </EmployeeProvider>
         </AdminProvider>
       </SuperAdminProvider>

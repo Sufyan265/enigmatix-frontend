@@ -8,8 +8,6 @@ export const EmployeeProvider = (props) => {
     const { host } = useSuperAdminContext();
     // const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [newUserData, setNewUserData] = useState([]);
-    const [allUsersData, setAllUsersData] = useState([]);
 
     const navigate = useNavigate();
 
@@ -46,73 +44,10 @@ export const EmployeeProvider = (props) => {
         }
     };
 
-
-    // Create Company Employee Account Function
-    const createUser = async (accountDetails) => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${host}/api/companies`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("EmployeeToken")}`
-                },
-                body: JSON.stringify(accountDetails)
-            });
-
-            if (!response.ok) {
-                throw new Error("Invalid Credentials")
-            }
-
-            const data = await response.json();
-            console.log(data)
-            setNewUserData(data)
-            navigate("/company/:id")
-            console.log("Company Created Succesfuly")
-            setLoading(false)
-        } catch (error) {
-            setLoading(false);
-            console.error(error)
-        }
-    };
-
-    // Create Company Employee Account Function
-    const getAllUsers = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${host}/api/users`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("EmployeeToken")}`
-                }
-            });
-
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.message)
-            }
-            // console.log(data)
-            setAllUsersData(data)
-            console.log("Fetch all Users Succesfuly")
-            setLoading(false)
-        } catch (error) {
-            setLoading(false);
-            console.error(error)
-        }
-    };
-
     return (
         <EmployeeContext.Provider value={{
             loading,
             loginEmployee,
-
-            createUser,
-            newUserData,
-
-            getAllUsers,
-            allUsersData,
-            setNewUserData,
 
 
         }}>

@@ -6,6 +6,8 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import NavbarCompany from '../../components/NavbarCompany';
 import { useAdminContext } from '../../context/AdminContext';
 import ViewCompany from './ViewCompany';
+import ApproveExpense from '../Expense/ApproveExpense';
+import AddIncome from '../Income/AddIncome';
 
 const Admin = () => {
     const { id } = useParams();
@@ -39,6 +41,10 @@ const Admin = () => {
                     <Routes>
                         <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} />} />
                         <Route path="/create" element={<CreateEmployee />} />
+
+                        <Route path="/expense" element={<ApproveExpense />} />
+
+                        <Route path="/income" element={<AddIncome />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>

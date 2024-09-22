@@ -8,7 +8,6 @@ const EmployeeLoginPage = () => {
     
     const onSubmit = async (data, setError) => {
         try {
-            console.log('superAdminData')
             await loginEmployee(data);
         } catch (error) {
             console.error(error);

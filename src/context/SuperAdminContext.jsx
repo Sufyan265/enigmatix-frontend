@@ -8,7 +8,6 @@ export const SuperAdminProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [newCompanyData, setNewCompanyData] = useState([]);
   const [allCompaniesData, setAllCompaniesData] = useState([]);
-  const [companyId, setCompanyId] = useState("");
 
   const host = "http://localhost:5000";
 
@@ -123,9 +122,6 @@ export const SuperAdminProvider = (props) => {
       getAllCompanies,
       allCompaniesData,
       setAllCompaniesData,
-
-      companyId,
-      setCompanyId,
 
     }}>
       {props.children}
