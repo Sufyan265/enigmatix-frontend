@@ -8,6 +8,7 @@ import { useAdminContext } from '../../context/AdminContext';
 import ViewCompany from './ViewCompany';
 import ApproveExpense from '../Expense/ApproveExpense';
 import AddIncome from '../Income/AddIncome';
+import AdminReport from '../Reports/AdminReport';
 
 const Admin = () => {
     const { id } = useParams();
@@ -45,6 +46,8 @@ const Admin = () => {
                         <Route path="/expense" element={<ApproveExpense />} />
 
                         <Route path="/income" element={<AddIncome />} />
+
+                        <Route path="/report" element={<AdminReport />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>

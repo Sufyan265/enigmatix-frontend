@@ -13,6 +13,8 @@ import { AdminProvider } from './context/AdminContext';
 import { EmployeeProvider } from './context/EmployeeContext';
 import { SuperAdminProtecter } from './routes/ProtectedRoute';
 import { ExpenseProvider } from './context/ExpenseContext';
+import { IncomeProvider } from './context/IncomeContext';
+import { ReportProvider } from './context/ReportContext';
 
 function AppWrapper() {
   const { companyId } = useSuperAdminContext();
@@ -41,11 +43,15 @@ function App() {
       <SuperAdminProvider>
         <AdminProvider>
           <EmployeeProvider>
-            <ExpenseProvider>
+            <IncomeProvider>
+              <ExpenseProvider>
+                <ReportProvider>
 
-              <AppWrapper />
+                  <AppWrapper />
 
-            </ExpenseProvider>
+                </ReportProvider>
+              </ExpenseProvider>
+            </IncomeProvider>
           </EmployeeProvider>
         </AdminProvider>
       </SuperAdminProvider>

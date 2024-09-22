@@ -28,7 +28,7 @@ const Sidebar = ({ isOpen }) => {
                                 <Link to={`/company/${id}/expense`} className="flex items-center space-x-2 hover:text-primary" onClick={() => handleItemClick('expense')}>Manage Expense</Link>
                             </li>
                             <li className={`mb-4 ${activeItem === 'reports' ? 'text-primary' : 'text-gray-600'}`}>
-                                <a href="#s" className="flex items-center space-x-2 hover:text-primary" onClick={() => handleItemClick('reports')}>View Reports</a>
+                                <Link to={`/company/${id}/report`} className="flex items-center space-x-2 hover:text-primary" onClick={() => handleItemClick('reports')}>View Reports</Link>
                             </li>
                         </ul>
                     </div>
