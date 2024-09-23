@@ -20,11 +20,11 @@ const Admin = () => {
 
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { getAllUsers, setNewUserData, allUsersData } = useAdminContext();
+    const { getAllUsers, newUserData, allUsersData } = useAdminContext();
 
     useEffect(() => {
         getAllUsers(id);
-    }, [setNewUserData]);
+    }, [newUserData]);
 
     return (
         <>
@@ -40,7 +40,7 @@ const Admin = () => {
                     </div>
 
                     <Routes>
-                        <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} />} />
+                        <Route path="/" element={<ViewCompany heading="Create Employee" createAccountPath={`/company/${id}/create`} getAccountPath={`/company/${id}/employee`} data={allUsersData} companyId={id} />} />
                         <Route path="/create" element={<CreateEmployee />} />
 
                         <Route path="/expense" element={<ApproveExpense />} />

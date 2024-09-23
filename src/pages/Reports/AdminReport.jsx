@@ -5,7 +5,7 @@ import { useIncomeContext } from '../../context/IncomeContext';
 import { useExpenseContext } from '../../context/ExpenseContext';
 import { useParams } from 'react-router-dom';
 
-const AdminReport = () => {
+const AdminReport = () => { 
     const { fetchReportData, loading, totalIncome, totalExpenses } = useReportContext();
     const { incomes } = useIncomeContext()
     const { expenses } = useExpenseContext()
@@ -20,7 +20,7 @@ const AdminReport = () => {
     // if (loading) return <p className="text-center text-xl text-gray-600">Loading report...</p>;
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8"> 
             <div className="bg-white shadow-md rounded-lg p-6 mb-6">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">Company Financial Report</h1>
 

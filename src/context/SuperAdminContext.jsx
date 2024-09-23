@@ -108,6 +108,35 @@ export const SuperAdminProvider = (props) => {
     }
   };
 
+  // Create Company Admin Account Function
+  const deleteCompany = async (companyId) => {
+    try {
+      const response = await fetch(`${host}/api/auth/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("superAdminToken")}`
+        },
+        body: JSON.stringify({ companyId })
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+
+      console.log(data)
+
+      const updatedData = allCompaniesData.filter(item => item.company._id !== companyId);
+
+      setAllCompaniesData(updatedData)
+
+      console.log("Company Deleted Succesfuly")
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
   return (
     <SuperAdminContext.Provider value={{
       host,
@@ -122,6 +151,8 @@ export const SuperAdminProvider = (props) => {
       getAllCompanies,
       allCompaniesData,
       setAllCompaniesData,
+
+      deleteCompany,
 
     }}>
       {props.children}

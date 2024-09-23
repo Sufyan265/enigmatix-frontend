@@ -47,7 +47,7 @@ export const IncomeProvider = (props) => {
     const allIncomes = async (companyId) => {
         try {
             setLoading(true);
-            const response = await fetch(`${host}/api/incomes`, {
+            const response = await fetch(`${host}/api/incomes/${companyId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -15,12 +15,21 @@ import { useSuperAdminContext } from "../../context/SuperAdminContext";
 // ];
 
 const ViewAccounts = ({ heading, createAccountPath, data }) => {
-    const { loading, } = useSuperAdminContext();
+    const { loading, deleteCompany } = useSuperAdminContext();
 
     // const { employeeId } = useParams();
 
     if (!data) {
         data = [];
+    }
+    console.log(data)
+
+    const handleDelete = async (companyId) => {
+        if (confirm("Are you sure you want to delete this company?")) {
+            await deleteCompany(companyId)
+        } else {
+            console.log("no company")
+        }
     }
 
 
@@ -42,7 +51,7 @@ const ViewAccounts = ({ heading, createAccountPath, data }) => {
                         </div>
                     ) : (
                         data.map((account) => (
-                            <AccountCard key={account.company._id} name={account.company.name} owner={account.admin.email} category={account.admin.name} path={`/company/login`} />
+                            <AccountCard key={account.company._id} name={account.company.companyName} owner={account.admin.email} category={account.admin.name} path={`/company/login`} companyId={account.company._id} handleDelete={handleDelete} />
                         ))
                     )}
                 </div>

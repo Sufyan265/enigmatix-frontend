@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import AccountCard from "../../components/AccountCard";
-import { useSuperAdminContext } from "../../context/SuperAdminContext";
+import { useAdminContext } from "../../context/AdminContext";
 
 // const botsObj = [
 //     { id: 1, name: 'Adeel', category: 'Layer Faram', owner: "Muhammad Sufyan" },
@@ -14,14 +14,19 @@ import { useSuperAdminContext } from "../../context/SuperAdminContext";
 //     { id: 7, name: 'Samad', category: 'Hardware Store', owner: "Muhammad Sufyan" },
 // ];
 
-const ViewCompany = ({ heading, createAccountPath, getAccountPath, data }) => {
-    const { loading } = useSuperAdminContext();
-
-    // const { employeeId } = useParams();
+const ViewCompany = ({ heading, createAccountPath, getAccountPath, data, companyId }) => {
+    const { loading, deleteUser } = useAdminContext()
 
     if (!data) {
         data = [];
     }
+
+    const handleDelete = async (userId) => {
+        if (confirm("Are you sure you want to delete this user?")) {
+            await deleteUser(userId, companyId)
+        }
+    }
+
 
     return (
         <>
@@ -40,7 +45,7 @@ const ViewCompany = ({ heading, createAccountPath, getAccountPath, data }) => {
                         </div>
                     ) : (
                         data.map((account) => (
-                            <AccountCard key={account._id} name={account.name} owner={account.email} category={account.role} path={`${getAccountPath}/login`} />
+                            <AccountCard key={account._id} name={account.name} owner={account.email} category={account.role} path={`${getAccountPath}/login`} handleDelete={handleDelete} companyId={account._id} />
                         ))
                     )}
                 </div>

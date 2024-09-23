@@ -94,7 +94,7 @@ export const AdminProvider = (props) => {
             if (!response.ok) {
                 throw new Error(data.message)
             }
-            // console.log(data)
+            console.log(data)
             setAllUsersData(data)
             console.log("Fetch all Users Succesfuly")
             setLoading(false)
@@ -108,39 +108,34 @@ export const AdminProvider = (props) => {
         }
     };
 
+    // Create Company Admin Account Function
+    const deleteUser = async (userId, companyId) => {
+        try {
+            const response = await fetch(`${host}/api/companies/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem(`adminToken:${companyId}`)}`,
+                },
+                body: JSON.stringify({ userId })
+            });
 
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message)
+            }
 
-    // const createAccount = async (data) => {
-    //   console.log("Create Account")
+            console.log(data)
 
-    // };
+            const updatedData = allUsersData.filter(item => item._id !== userId);
 
+            setAllUsersData(updatedData)
 
-    // Get All Accounts Function
-    // const getAccounts = async () => {
-    //   console.log("Get All Accounts")
-
-    // };
-
-    // Get Account By ID Function
-    // const getAccountById = async (accountId) => {
-    //   console.log("Get Account By ID")
-
-    // };
-
-
-    // Edit Account Function
-    // const editAccount = async (accountId, data) => {
-    //   console.log("Edit Account Function")
-
-    // };
-
-
-    // Delete Account Function (Delete from Firebase)
-    // const deleteAccount = async (accountId) => {
-    //   console.log("Delete Account")
-
-    // };
+            console.log("User Deleted Succesfuly")
+        } catch (error) {
+            console.error(error)
+        }
+    };
 
     return (
         <AdminContext.Provider value={{
@@ -153,6 +148,8 @@ export const AdminProvider = (props) => {
             getAllUsers,
             allUsersData,
             setNewUserData,
+
+            deleteUser,
 
 
         }}>
